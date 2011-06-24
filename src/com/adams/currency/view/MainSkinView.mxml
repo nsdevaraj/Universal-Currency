@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Skin xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		xmlns:s="library://ns.adobe.com/flex/spark"
+		xmlns:mediators="com.adams.currency.view.mediators.*" >	
+	<s:states>
+		<!-- // State Begin -->
+		<s:State name='Home'/> 
+		<!-- State End -->  
+	</s:states> 
+	<!-- // View Begin -->
+	<s:BorderContainer styleName="bgColor" borderVisible="false" 
+					   blendMode="color" width="100%" height="100%"/>
+	<s:VGroup left="15" right="15" bottom="15" top="15"  width="100%" height="100%">
+		<mediators:HomeViewMediator id='home' skinClass='com.adams.currency.view.HomeSkinView' homeState='{currentState}' includeIn='Home' width='100%' height='90%'/>
+	</s:VGroup>
+	<!-- View End -->  
+</s:Skin>

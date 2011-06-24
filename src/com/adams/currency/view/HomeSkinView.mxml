@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Skin xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		xmlns:s="library://ns.adobe.com/flex/spark" 
+		xmlns:mediators="com.adams.currency.view.mediators.*" 
+		xmlns:components="com.adams.currency.view.components.*"
+		xmlns:components1="com.adams.swizdao.views.components.*"  >	
+	<s:states>
+		<s:State name='Country'/>
+		<s:State name='Code'/>
+	</s:states>
+	<s:Panel backgroundColor="#232323" width="100%" height="100%" title="Universal Currency">
+		<s:layout><s:VerticalLayout /></s:layout>
+		<s:ButtonBar id="controlsPanel" requireSelection="true" top="10" right="10"
+					 arrowKeysWrapFocus="true" labelField="value" selectedIndex="1">
+			<s:layout><s:HorizontalLayout gap="10" variableColumnWidth="false" columnWidth="13"  verticalAlign="middle"
+										  paddingRight="5" paddingLeft="5"/></s:layout>
+			<s:dataProvider>
+				<s:ArrayList>
+					<fx:Object icon="@Embed('assets/images/thumb_over.png')" label="Code View" value="Code"/>
+					<fx:Object icon="@Embed('assets/images/detail_over.png')" label="Country View" value="Country"/>
+				</s:ArrayList>
+			</s:dataProvider>
+		</s:ButtonBar>
+		<s:VGroup width="100%">
+			<s:Form width="100%" height="100%">
+				<s:FormItem label="Type a country or currency:" left="467" top="30" required="true">
+					<components:PropertyCompleteView id="dest" width="240" width.Code="150" labelField="country" 
+													 labelField.Code="code" forceOpen="true"
+													 skinClass="com.adams.currency.view.PropertyCompleteSkin" />
+				</s:FormItem>
+				<s:FormItem label="Please enter an amount:" left="467" top="90" >
+					<s:HGroup>
+						<s:TextInput id="destAmount" restrict="[0-9]" width="80"/>
+						<s:Label id="destLbl"/>
+					</s:HGroup>
+				</s:FormItem>
+			</s:Form>
+			<s:Form width="100%" height="100%">
+				<s:FormItem label="Type a country or currency:" left="67" top="30" required="true">
+					<components:PropertyCompleteView id="src" width="240" width.Code="150" labelField="country" 
+													 labelField.Code="code" forceOpen="true"
+													 skinClass="com.adams.currency.view.PropertyCompleteSkin" />
+				</s:FormItem>
+				<s:FormItem label="Please enter an amount:" left="67" top="90" >
+					<s:HGroup>
+						<s:TextInput id="srcAmount" restrict="[0-9]" width="80" />
+						<s:Label id="srcLbl"/>
+					</s:HGroup>
+				</s:FormItem>
+			</s:Form>
+		</s:VGroup>
+		<s:HGroup width="100%" paddingLeft="10" paddingRight="10">
+			<s:Label text="Exchange rate as on "/>
+			<s:Label id="time" color="yellow"/>
+			<s:Label id="rate"/>
+			<s:Spacer width="100%" />
+			<components1:NativeButton id="refresh" label="Refresh" />
+		</s:HGroup>
+	</s:Panel>
+</s:Skin>
