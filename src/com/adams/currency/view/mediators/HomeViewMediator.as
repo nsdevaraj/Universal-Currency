@@ -30,6 +30,8 @@ package com.adams.currency.view.mediators
 	import flash.events.Event;
 	import flash.events.MouseEvent;
 	
+	import mx.core.FlexGlobals;
+	import mx.events.ResizeEvent;
 	import mx.events.StateChangeEvent;
 	
 	import spark.events.IndexChangeEvent;
@@ -159,13 +161,14 @@ package com.adams.currency.view.mediators
 			view.controlsPanel.addEventListener(IndexChangeEvent.CHANGE,onViewChangeHandler,false,0,true);
 			view.srcAmount.addEventListener(TextOperationEvent.CHANGE,onSrcTextHandler,false,0,true);
 			view.destAmount.addEventListener(TextOperationEvent.CHANGE,onDestTextHandler,false,0,true);
-			addEventListener(StateChangeEvent.CURRENT_STATE_CHANGE,stateChangeHandler,false,0,true);
+			
+			FlexGlobals.topLevelApplication.addEventListener(ResizeEvent.RESIZE,application_resizeHandler, false, 0, true);
 			view.src.selectedSignal.add( updateSrcCurrencyProvider );
 			view.dest.selectedSignal.add( updateDestCurrencyProvider );
 		}
 		
-		protected function stateChangeHandler(event:StateChangeEvent=null):void{
-			trace(view.currentState+'view.currentState')
+		protected function application_resizeHandler(event:ResizeEvent=null):void{
+			view.currentState = FlexGlobals.topLevelApplication.aspectRatio
 		}
 		
 		protected function onSrcTextHandler(event:TextOperationEvent=null):void{
