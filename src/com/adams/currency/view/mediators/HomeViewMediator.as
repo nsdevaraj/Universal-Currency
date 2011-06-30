@@ -22,6 +22,7 @@ package com.adams.currency.view.mediators
 	import com.adams.swizdao.views.mediators.AbstractViewMediator;
 	
 	import flash.events.Event;
+	import flash.events.FocusEvent;
 	import flash.events.MouseEvent;
 	
 	import mx.core.FlexGlobals;
@@ -91,9 +92,6 @@ package com.adams.currency.view.mediators
 		override protected function init():void {
 			super.init();  
 			viewState = Utils.HOME_INDEX;
-			setDataProviders();
-			getLatestValueHandler();
-			applicationResizeHandler(); 
 			if(currentInstance.mapConfig.currentListItem){
 				if(currentInstance.mapConfig.currentListName=='src'){
 					view.src.selectedItem = currentInstance.mapConfig.currentListItem;
@@ -105,6 +103,10 @@ package com.adams.currency.view.mediators
 				}
 				callLater(setScrollIndex);
 				currentInstance.mapConfig.currentListItem = null;
+			}else{
+				setDataProviders();
+				getLatestValueHandler();
+				applicationResizeHandler(); 
 			}
 		} 
 		
@@ -189,6 +191,12 @@ package com.adams.currency.view.mediators
 			view.refresh.clicked.add(getLatestValueHandler);
 			view.controlsPanel.addEventListener(IndexChangeEvent.CHANGE,onViewChangeHandler,false,0,true);
 			view.srcAmount.addEventListener(TextOperationEvent.CHANGE,onSrcTextHandler,false,0,true);
+			view.srcAmount.addEventListener(FocusEvent.FOCUS_IN,function(event:FocusEvent):void{
+				event.currentTarget.selectAll();
+			},false,0,true);
+			view.destAmount.addEventListener(FocusEvent.FOCUS_IN,function(event:FocusEvent):void{
+				event.currentTarget.selectAll();
+			},false,0,true);
 			view.destAmount.addEventListener(TextOperationEvent.CHANGE,onDestTextHandler,false,0,true);
 			view.xpandSrc.addEventListener(MouseEvent.CLICK,expandList,false,0,true);
 			view.xpandDest.addEventListener(MouseEvent.CLICK,expandList,false,0,true);
