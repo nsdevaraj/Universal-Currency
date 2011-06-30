@@ -11,7 +11,6 @@ Copyright (c) 2011 Adams Studio India, All Rights Reserved
 */
 package com.adams.currency.model.vo
 { 
-	import mx.collections.ArrayCollection;
 
 	[Bindable]
 	public class MapConfigVO 
@@ -19,5 +18,8 @@ package com.adams.currency.model.vo
 		 public var sourceCurrency:String;
 		 public var targetCurrency:String;
 		 public var currencyRate:Number;
+		 public var currentList:Object;
+		 public var currentListItem:Object;
+		 public var currentListName:String;
 	}
 }

@@ -17,14 +17,8 @@ package com.adams.currency.view.mediators
 	import com.adams.currency.util.CurrencyUtils;
 	import com.adams.currency.util.Utils;
 	import com.adams.currency.view.HomeSkinView;
-	import com.adams.swizdao.dao.PagingDAO;
 	import com.adams.swizdao.model.vo.*;
-	import com.adams.swizdao.response.SignalSequence;
 	import com.adams.swizdao.util.Action;
-	import com.adams.swizdao.util.ArrayUtil;
-	import com.adams.swizdao.util.Description;
-	import com.adams.swizdao.util.ObjectUtils;
-	import com.adams.swizdao.views.components.NativeList;
 	import com.adams.swizdao.views.mediators.AbstractViewMediator;
 	
 	import flash.events.Event;
@@ -98,7 +92,16 @@ package com.adams.currency.view.mediators
 			viewState = Utils.HOME_INDEX;
 			setDataProviders();
 			getLatestValueHandler();
-			application_resizeHandler();
+			applicationResizeHandler();
+			if(currentInstance.mapConfig.currentListItem){
+				if(currentInstance.mapConfig.currentListName=='src'){
+					updateSrcCurrency(currentInstance.mapConfig.currentListItem);
+				}
+				if(currentInstance.mapConfig.currentListName=='dest'){
+					updateDestCurrency(currentInstance.mapConfig.currentListItem);
+				}
+				currentInstance.mapConfig.currentListItem = null;
+			}
 		} 
 		
 		protected function setDataProviders():void {	    
@@ -112,8 +115,13 @@ package com.adams.currency.view.mediators
 		
 		private function updateSrcCurrencyProvider (ev:IndexChangeEvent  ):void{
 			var	currencyObj:Object = ev.currentTarget.selectedItem
+			updateSrcCurrency(currencyObj)
+		}
+		
+		private function updateSrcCurrency(currencyObj:Object  ):void{
 			if( currencyObj ) {
 				if( CurrencyUtils.currencyList.getItemIndex( currencyObj ) != -1 )  {
+					view.src.selectedItem = currencyObj;
 					currentInstance.mapConfig.sourceCurrency = view.src.selectedItem.code;
 					getLatestValueHandler();
 				}
@@ -122,8 +130,13 @@ package com.adams.currency.view.mediators
 		
 		private function updateDestCurrencyProvider ( ev:IndexChangeEvent ):void{
 			var	currencyObj:Object = ev.currentTarget.selectedItem
+			updateDestCurrency(currencyObj)
+		}
+		
+		private function updateDestCurrency ( currencyObj:Object  ):void{
 			if( currencyObj ) {
 				if( CurrencyUtils.currencyList.getItemIndex( currencyObj ) != -1 )  {
+					view.dest.selectedItem = currencyObj;
 					currentInstance.mapConfig.targetCurrency = view.dest.selectedItem.code;
 					getLatestValueHandler();
 				}
@@ -163,13 +176,29 @@ package com.adams.currency.view.mediators
 			view.controlsPanel.addEventListener(IndexChangeEvent.CHANGE,onViewChangeHandler,false,0,true);
 			view.srcAmount.addEventListener(TextOperationEvent.CHANGE,onSrcTextHandler,false,0,true);
 			view.destAmount.addEventListener(TextOperationEvent.CHANGE,onDestTextHandler,false,0,true);
-			
-			FlexGlobals.topLevelApplication.addEventListener(ResizeEvent.RESIZE,application_resizeHandler, false, 0, true);
+			view.xpandSrc.addEventListener(MouseEvent.CLICK,expandList,false,0,true);
+			view.xpandDest.addEventListener(MouseEvent.CLICK,expandList,false,0,true);
+			FlexGlobals.topLevelApplication.addEventListener(ResizeEvent.RESIZE,applicationResizeHandler, false, 0, true);
 			view.src.addEventListener(IndexChangeEvent.CHANGE,updateSrcCurrencyProvider );
 			view.dest.addEventListener(IndexChangeEvent.CHANGE,updateDestCurrencyProvider );
 		}
 		
-		protected function application_resizeHandler(event:ResizeEvent=null):void{
+		protected function expandList(event:MouseEvent=null):void{
+			var currentList:Object = new Object();
+			if(event.currentTarget == view.xpandDest){
+				currentList.dataProvider = view.dest.dataProvider;
+				currentList.selectedIndex = view.dest.selectedIndex;
+				currentList.objName = 'dest';
+			}else if(event.currentTarget == view.xpandSrc){
+				currentList.dataProvider = view.src.dataProvider;
+				currentList.selectedIndex = view.src.selectedIndex;
+				currentList.objName = 'src';
+			}
+			currentInstance.mapConfig.currentList = currentList;
+			controlSignal.changeStateSignal.dispatch(Utils.LIST_INDEX);
+		}
+		
+		protected function applicationResizeHandler(event:ResizeEvent=null):void{
 			view.currentState =FlexGlobals.topLevelApplication.aspectRatio;
 		} 
 		
@@ -188,7 +217,6 @@ package com.adams.currency.view.mediators
 			view.dest.labelField =view.controlsPanel.selectedItem.value;
 			view.src.selectedItem = view.src.selectedItem; 
 			view.dest.selectedItem = view.dest.selectedItem;
-			
 		}	
 		
 		protected function getLatestValueHandler(event:MouseEvent=null): void {
@@ -217,7 +245,7 @@ package com.adams.currency.view.mediators
 			view.controlsPanel.removeEventListener(IndexChangeEvent.CHANGE,onViewChangeHandler);
 			view.srcAmount.removeEventListener(TextOperationEvent.CHANGE,onSrcTextHandler);
 			view.destAmount.removeEventListener(TextOperationEvent.CHANGE,onDestTextHandler);
-			
+			FlexGlobals.topLevelApplication.removeEventListener(ResizeEvent.RESIZE,applicationResizeHandler);
 			super.cleanup( event ); 		
 			
 		} 

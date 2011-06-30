@@ -25,6 +25,7 @@ package com.adams.currency.util
        public static const FEEDITEMKEY  :String='title';
 		 
 		// todo: add dao
+       public static const LIST_INDEX:String='List';
        public static const HOME_INDEX:String='Home';
        public static const FEEDITEMDAO  :String='feeditemDAO'; 
 		

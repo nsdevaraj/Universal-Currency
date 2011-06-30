@@ -5,12 +5,14 @@
 	<s:states>
 		<!-- // State Begin -->
 		<s:State name='Home'/> 
+		<s:State name='List'/>
 		<!-- State End -->  
 	</s:states> 
 	<!-- // View Begin -->
 	<s:BorderContainer styleName="bgColor" borderVisible="false" 
 					   blendMode="color" width="100%" height="100%"/>
 	<s:VGroup left="15" right="15" bottom="15" top="15"  width="100%" height="100%">
+		<mediators:ListViewMediator id='list' skinClass='com.adams.currency.view.ListSkinView' homeState='{currentState}' includeIn='List' width='100%' height='100%'/>
 		<mediators:HomeViewMediator id='home' skinClass='com.adams.currency.view.HomeSkinView' homeState='{currentState}' includeIn='Home' width='100%' height='90%'/>
 	</s:VGroup>
 	<!-- View End -->  

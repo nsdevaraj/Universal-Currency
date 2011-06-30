@@ -30,4 +30,11 @@ s|Label.header{
 }
 s|ButtonBar{
 	skin-class:ClassReference('assets.skins.ButtonBar.ButtonBarSkin');
-}
+} 
+s|Button.expand{
+	skin-class:ClassReference('assets.skins.ButtonSkin');
+	overSkin:Embed('assets/images/dropdownArrow_over.png');
+	upSkin:Embed('assets/images/dropdownArrow.png');
+	downSkin:Embed('assets/images/dropdownArrow.png');
+	disabledSkin:Embed('assets/images/dropdownArrow_over.png');
+} 

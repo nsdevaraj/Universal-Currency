@@ -31,8 +31,11 @@
 				<s:VerticalLayout/>
 			</s:layout.portrait>
 			<s:Form width="100%" height="100%">
-				<s:FormItem label="Type a country or currency:" left="467" top="30" required="true"> 
-					<s:List id="dest" width="240" labelField="country" height="70" selectionColor="black" />
+				<s:FormItem label="Type a country or currency:" left="467" top="30" required="true">
+					<s:HGroup>
+						<s:DropDownList id="dest" width="240" labelField="country" height="70" selectionColor="black" />
+						<s:Button id="xpandDest" styleName="expand"/>
+					</s:HGroup>
 				</s:FormItem>
 				<s:FormItem label="Please enter an amount:" left="467" top="90" >
 					<s:HGroup>
@@ -43,7 +46,10 @@
 			</s:Form>
 			<s:Form width="100%" height="100%">
 				<s:FormItem label="Type a country or currency:" left="67" top="30" required="true">
-					<s:List id="src" width="240" labelField="country"  height="70" selectionColor="black" />
+					<s:HGroup>
+						<s:DropDownList id="src" width="240" labelField="country"  height="70" selectionColor="black" />
+						<s:Button id="xpandSrc" styleName="expand"/>
+					</s:HGroup>
 				</s:FormItem>
 				<s:FormItem label="Please enter an amount:" left="67" top="90" >
 					<s:HGroup>
