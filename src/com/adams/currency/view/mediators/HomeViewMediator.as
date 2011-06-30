@@ -168,8 +168,8 @@ package com.adams.currency.view.mediators
 		}
 		
 		protected function application_resizeHandler(event:ResizeEvent=null):void{
-			view.currentState = FlexGlobals.topLevelApplication.aspectRatio
-		}
+			view.currentState =FlexGlobals.topLevelApplication.aspectRatio;
+		} 
 		
 		protected function onSrcTextHandler(event:TextOperationEvent=null):void{
 			view.destAmount.text = (currentInstance.mapConfig.currencyRate*parseInt(view.srcAmount.text)).toString();
