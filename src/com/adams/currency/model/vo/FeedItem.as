@@ -14,7 +14,6 @@ package com.adams.currency.model.vo
 	import com.adams.swizdao.model.vo.AbstractVO;
 	import mx.collections.ArrayCollection;
 	[Bindable]
-	[RemoteClass(alias='com.rad3.currency.dao.entities.FeedItem')]
 	public class FeedItem extends AbstractVO
 	{
 		private var _feeditemId:int; 
