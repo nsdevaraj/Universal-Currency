@@ -32,7 +32,6 @@ package com.adams.currency.view.mediators
 	
 	import mx.core.FlexGlobals;
 	import mx.events.ResizeEvent;
-	import mx.events.StateChangeEvent;
 	
 	import spark.events.IndexChangeEvent;
 	import spark.events.TextOperationEvent;
@@ -99,6 +98,7 @@ package com.adams.currency.view.mediators
 			viewState = Utils.HOME_INDEX;
 			setDataProviders();
 			getLatestValueHandler();
+			application_resizeHandler();
 		} 
 		
 		protected function setDataProviders():void {	    
@@ -110,7 +110,8 @@ package com.adams.currency.view.mediators
 			currentInstance.mapConfig.targetCurrency = view.dest.selectedItem.code;
 		}
 		
-		private function updateSrcCurrencyProvider ( currencyObj:Object ):void{
+		private function updateSrcCurrencyProvider (ev:IndexChangeEvent  ):void{
+			var	currencyObj:Object = ev.currentTarget.selectedItem
 			if( currencyObj ) {
 				if( CurrencyUtils.currencyList.getItemIndex( currencyObj ) != -1 )  {
 					currentInstance.mapConfig.sourceCurrency = view.src.selectedItem.code;
@@ -119,7 +120,8 @@ package com.adams.currency.view.mediators
 			}
 		}
 		
-		private function updateDestCurrencyProvider ( currencyObj:Object ):void{
+		private function updateDestCurrencyProvider ( ev:IndexChangeEvent ):void{
+			var	currencyObj:Object = ev.currentTarget.selectedItem
 			if( currencyObj ) {
 				if( CurrencyUtils.currencyList.getItemIndex( currencyObj ) != -1 )  {
 					currentInstance.mapConfig.targetCurrency = view.dest.selectedItem.code;
@@ -163,8 +165,8 @@ package com.adams.currency.view.mediators
 			view.destAmount.addEventListener(TextOperationEvent.CHANGE,onDestTextHandler,false,0,true);
 			
 			FlexGlobals.topLevelApplication.addEventListener(ResizeEvent.RESIZE,application_resizeHandler, false, 0, true);
-			view.src.selectedSignal.add( updateSrcCurrencyProvider );
-			view.dest.selectedSignal.add( updateDestCurrencyProvider );
+			view.src.addEventListener(IndexChangeEvent.CHANGE,updateSrcCurrencyProvider );
+			view.dest.addEventListener(IndexChangeEvent.CHANGE,updateDestCurrencyProvider );
 		}
 		
 		protected function application_resizeHandler(event:ResizeEvent=null):void{
@@ -216,8 +218,6 @@ package com.adams.currency.view.mediators
 			view.srcAmount.removeEventListener(TextOperationEvent.CHANGE,onSrcTextHandler);
 			view.destAmount.removeEventListener(TextOperationEvent.CHANGE,onDestTextHandler);
 			
-			view.src.selectedSignal.removeAll();
-			view.dest.selectedSignal.removeAll();
 			super.cleanup( event ); 		
 			
 		} 
