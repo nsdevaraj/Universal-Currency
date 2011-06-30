@@ -27,6 +27,7 @@ package com.adams.currency.view.mediators
 	import mx.core.FlexGlobals;
 	import mx.events.ResizeEvent;
 	
+	import spark.components.List;
 	import spark.events.IndexChangeEvent;
 	import spark.events.TextOperationEvent;
 	
@@ -92,25 +93,38 @@ package com.adams.currency.view.mediators
 			viewState = Utils.HOME_INDEX;
 			setDataProviders();
 			getLatestValueHandler();
-			applicationResizeHandler();
+			applicationResizeHandler(); 
 			if(currentInstance.mapConfig.currentListItem){
 				if(currentInstance.mapConfig.currentListName=='src'){
+					view.src.selectedItem = currentInstance.mapConfig.currentListItem;
 					updateSrcCurrency(currentInstance.mapConfig.currentListItem);
 				}
 				if(currentInstance.mapConfig.currentListName=='dest'){
+					view.dest.selectedItem = currentInstance.mapConfig.currentListItem;
 					updateDestCurrency(currentInstance.mapConfig.currentListItem);
 				}
+				callLater(setScrollIndex);
 				currentInstance.mapConfig.currentListItem = null;
 			}
 		} 
 		
+		protected function findSelectedIndex(list:List):int{
+			return list.dataProvider.getItemIndex(list.selectedItem);
+		}
+		
 		protected function setDataProviders():void {	    
 			view.src.dataProvider = CurrencyUtils.currencyList;
 			view.dest.dataProvider = CurrencyUtils.currencyList;
-			view.src.selectedItem = CurrencyUtils.currencyList.list.getItemAt(40);
-			view.dest.selectedItem = CurrencyUtils.currencyList.list.getItemAt(57);
+			view.src.selectedItem = CurrencyUtils.currencyList.list.getItemAt(60);
+			view.dest.selectedItem = CurrencyUtils.currencyList.list.getItemAt(21);
 			currentInstance.mapConfig.sourceCurrency = view.src.selectedItem.code;
 			currentInstance.mapConfig.targetCurrency = view.dest.selectedItem.code;
+			callLater(setScrollIndex);
+		}
+		
+		protected function setScrollIndex():void{
+			view.src.ensureIndexIsVisible(findSelectedIndex(view.src));
+			view.dest.ensureIndexIsVisible(findSelectedIndex(view.dest));
 		}
 		
 		private function updateSrcCurrencyProvider (ev:IndexChangeEvent  ):void{

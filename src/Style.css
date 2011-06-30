@@ -33,8 +33,8 @@ s|ButtonBar{
 } 
 s|Button.expand{
 	skin-class:ClassReference('assets.skins.ButtonSkin');
-	overSkin:Embed('assets/images/dropdownArrow_over.png');
+	overSkin:Embed('assets/images/dropdownArrow.png');
 	upSkin:Embed('assets/images/dropdownArrow.png');
 	downSkin:Embed('assets/images/dropdownArrow.png');
-	disabledSkin:Embed('assets/images/dropdownArrow_over.png');
+	disabledSkin:Embed('assets/images/dropdownArrow.png');
 } 
