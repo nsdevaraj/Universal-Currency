@@ -10,7 +10,8 @@
 s|Application{
 	chrome-color:#2d3239;
 	content-background-color:#313235;
-	color:#bdbdbd; 
+	color:#bdbdbd;
+	fontFamily: Calibri;
 	skin-class:ClassReference('assets.skins.ApplicationSkin');
 	background-color:#2d3540;
 	symbol-color:#ffff00;
