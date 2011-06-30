@@ -25,7 +25,7 @@ package com.adams.currency.view.mediators
 	
 	import spark.components.List;
 	import spark.events.IndexChangeEvent;
-
+	
 	public class ListViewMediator extends AbstractViewMediator
 	{ 		 
 		
@@ -51,7 +51,7 @@ package com.adams.currency.view.mediators
 		protected function addedtoStage(ev:Event):void{
 			init();
 		}
-		     
+		
 		/**
 		 * Constructor.
 		 */
@@ -59,7 +59,7 @@ package com.adams.currency.view.mediators
 		{
 			super( ListSkinView ); 
 		}
-
+		
 		/**
 		 * Since the AbstractViewMediator sets the view via Autowiring in Swiz,
 		 * we need to create a local getter to access the underlying, expected view
@@ -87,10 +87,15 @@ package com.adams.currency.view.mediators
 			
 			view.list.dataProvider = list.dataProvider;
 			view.list.selectedIndex = list.selectedIndex;
+			callLater(setScroll);
 			objName = list.objName;
 			applicationResizeHandler(); 
-		}    
- 		/**
+		}   
+		
+		protected function setScroll():void{
+			view.list.ensureIndexIsVisible(view.list.selectedIndex);
+		}
+		/**
 		 * Create listeners for all of the view's children that dispatch events
 		 * that we want to handle in this mediator.
 		 */
