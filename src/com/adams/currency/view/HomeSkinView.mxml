@@ -3,11 +3,7 @@
 		xmlns:s="library://ns.adobe.com/flex/spark" 
 		xmlns:mediators="com.adams.currency.view.mediators.*" 
 		xmlns:components="com.adams.currency.view.components.*"
-		xmlns:components1="com.adams.swizdao.views.components.*"  >	
-	<s:states>
-		<s:State name='Country'/>
-		<s:State name='Code'/>
-	</s:states>
+		xmlns:components1="com.adams.swizdao.views.components.*"  >	 
 	<s:Panel backgroundColor="#232323" width="100%" height="100%" title="Universal Currency">
 		<s:layout><s:VerticalLayout /></s:layout>
 		<s:ButtonBar id="controlsPanel" requireSelection="true" top="10" right="10"
@@ -16,16 +12,16 @@
 										  paddingRight="5" paddingLeft="5"/></s:layout>
 			<s:dataProvider>
 				<s:ArrayList>
-					<fx:Object icon="@Embed('assets/images/thumb_over.png')" label="Code View" value="Code"/>
-					<fx:Object icon="@Embed('assets/images/detail_over.png')" label="Country View" value="Country"/>
+					<fx:Object icon="@Embed('assets/images/thumb_over.png')" label="Code View" value="code"/>
+					<fx:Object icon="@Embed('assets/images/detail_over.png')" label="Country View" value="country"/>
 				</s:ArrayList>
 			</s:dataProvider>
 		</s:ButtonBar>
 		<s:VGroup width="100%">
 			<s:Form width="100%" height="100%">
 				<s:FormItem label="Type a country or currency:" left="467" top="30" required="true">
-					<components:PropertyCompleteView id="dest" width="240" width.Code="150" labelField="country" 
-													 labelField.Code="code" forceOpen="true"
+					<components:PropertyCompleteView id="dest" width="240" labelField="country" 
+													 forceOpen="true"
 													 skinClass="com.adams.currency.view.PropertyCompleteSkin" />
 				</s:FormItem>
 				<s:FormItem label="Please enter an amount:" left="467" top="90" >
@@ -37,8 +33,8 @@
 			</s:Form>
 			<s:Form width="100%" height="100%">
 				<s:FormItem label="Type a country or currency:" left="67" top="30" required="true">
-					<components:PropertyCompleteView id="src" width="240" width.Code="150" labelField="country" 
-													 labelField.Code="code" forceOpen="true"
+					<components:PropertyCompleteView id="src" width="240" labelField="country" 
+													 forceOpen="true"
 													 skinClass="com.adams.currency.view.PropertyCompleteSkin" />
 				</s:FormItem>
 				<s:FormItem label="Please enter an amount:" left="67" top="90" >

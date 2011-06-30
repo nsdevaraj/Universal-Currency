@@ -11,6 +11,12 @@ Copyright (c) 2011 Adams Studio India, All Rights Reserved
 */
 package com.adams.currency.view.mediators
 { 
+	import com.adams.currency.model.AbstractDAO;
+	import com.adams.currency.model.vo.*;
+	import com.adams.currency.signal.ControlSignal;
+	import com.adams.currency.util.CurrencyUtils;
+	import com.adams.currency.util.Utils;
+	import com.adams.currency.view.HomeSkinView;
 	import com.adams.swizdao.dao.PagingDAO;
 	import com.adams.swizdao.model.vo.*;
 	import com.adams.swizdao.response.SignalSequence;
@@ -20,16 +26,11 @@ package com.adams.currency.view.mediators
 	import com.adams.swizdao.util.ObjectUtils;
 	import com.adams.swizdao.views.components.NativeList;
 	import com.adams.swizdao.views.mediators.AbstractViewMediator;
-	import com.adams.currency.model.AbstractDAO;
-	import com.adams.currency.model.vo.*;
-	import com.adams.currency.signal.ControlSignal;
-	import com.adams.currency.util.CurrencyUtils;
-	import com.adams.currency.util.Utils;
-	import com.adams.currency.view.HomeSkinView;
 	
 	import flash.events.Event;
 	import flash.events.MouseEvent;
 	
+	import mx.events.StateChangeEvent;
 	
 	import spark.events.IndexChangeEvent;
 	import spark.events.TextOperationEvent;
@@ -158,9 +159,13 @@ package com.adams.currency.view.mediators
 			view.controlsPanel.addEventListener(IndexChangeEvent.CHANGE,onViewChangeHandler,false,0,true);
 			view.srcAmount.addEventListener(TextOperationEvent.CHANGE,onSrcTextHandler,false,0,true);
 			view.destAmount.addEventListener(TextOperationEvent.CHANGE,onDestTextHandler,false,0,true);
-			
+			addEventListener(StateChangeEvent.CURRENT_STATE_CHANGE,stateChangeHandler,false,0,true);
 			view.src.selectedSignal.add( updateSrcCurrencyProvider );
 			view.dest.selectedSignal.add( updateDestCurrencyProvider );
+		}
+		
+		protected function stateChangeHandler(event:StateChangeEvent=null):void{
+			trace(view.currentState+'view.currentState')
 		}
 		
 		protected function onSrcTextHandler(event:TextOperationEvent=null):void{
@@ -174,7 +179,8 @@ package com.adams.currency.view.mediators
 		}
 		
 		protected function onViewChangeHandler(event:IndexChangeEvent):void{
-			view.currentState=view.controlsPanel.selectedItem.value;
+			view.src.labelField =view.controlsPanel.selectedItem.value;
+			view.dest.labelField =view.controlsPanel.selectedItem.value;
 			view.src.selectedItem = view.src.selectedItem; 
 			view.dest.selectedItem = view.dest.selectedItem;
 			

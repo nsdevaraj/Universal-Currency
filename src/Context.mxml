@@ -53,7 +53,7 @@
 	
 	<Swiz:customProcessors>
 		<mediateview:MediateViewProcessor/>		
-		<signalprocess:SignalsProcessor strictArgumentTypes="true" signalPackages='com.rad3.currency.signal'/>
+		<signalprocess:SignalsProcessor strictArgumentTypes="true" signalPackages='com.adams.currency.signal'/>
 		<signalprocess:MediateSignalProcessor signalPackages="{['com.adams.swizdao.signals']}" strictArgumentTypes="true"/>
 	</Swiz:customProcessors>
 	
