@@ -63,7 +63,6 @@
 			<s:Label id="time" color="yellow"/>
 			<s:Label id="rate"/>
 			<s:Spacer width="100%" />
-			<components1:NativeButton id="refresh" label="Refresh" />
 		</s:VGroup>
 	</s:Panel>
 </s:Skin>

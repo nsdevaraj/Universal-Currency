@@ -188,7 +188,6 @@ package com.adams.currency.view.mediators
 		 */
 		override protected function setViewListeners():void {
 			super.setViewListeners(); 
-			view.refresh.clicked.add(getLatestValueHandler);
 			view.controlsPanel.addEventListener(IndexChangeEvent.CHANGE,onViewChangeHandler,false,0,true);
 			view.srcAmount.addEventListener(TextOperationEvent.CHANGE,onSrcTextHandler,false,0,true);
 			view.srcAmount.addEventListener(FocusEvent.FOCUS_IN,function(event:FocusEvent):void{
@@ -263,7 +262,6 @@ package com.adams.currency.view.mediators
 		 * Remove any listeners we've created.
 		 */
 		override protected function cleanup( event:Event ):void {
-			view.refresh.clicked.removeAll();
 			view.controlsPanel.removeEventListener(IndexChangeEvent.CHANGE,onViewChangeHandler);
 			view.srcAmount.removeEventListener(TextOperationEvent.CHANGE,onSrcTextHandler);
 			view.destAmount.removeEventListener(TextOperationEvent.CHANGE,onDestTextHandler);
